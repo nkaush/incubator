@@ -1,0 +1,5 @@
+# database 
+
+## Tables
+- students
+- attendance
