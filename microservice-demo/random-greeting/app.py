@@ -1,6 +1,9 @@
 from flask import Flask, request
 import random
 import json
+import os
+
+PORT = os.getenv("PORT", 3000)
 
 app = Flask(__name__)
 
@@ -32,4 +35,4 @@ def healthcheck():
     return {"name": "random-greeting-service"}
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=9999)    
+    app.run(host='0.0.0.0', port=PORT)    

@@ -6,21 +6,22 @@ services:
     build: random-greeting
     ports:
      - 9999:9999
-    healthcheck:
-      test: ["CMD-SHELL", "curl localhost:9999/healthcheck"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
+    env_file:
+     - ./random-greeting/.env
   incubator-roster:
     container_name: incubator-roster-service
     build: incubator-roster
     ports:
      - 8765:8765
-    healthcheck:
-      test: ["CMD-SHELL", "curl localhost:8765/healthcheck"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
+  attendance:
+    image: mysql/mysql-server:latest
+    container_name: attendance
+    ports:
+     - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./attendance/data:/docker-entrypoint-initdb.d
 networks:
   default:
     name: local-network
